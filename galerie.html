@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - Eben Ezer Architecture</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #2E3192;
+            --secondary: #00A651;
+            --dark: #1A1D27;
+            --light: #F8F9FA;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Barre de navigation EXACTEMENT COMME INDEX.HTML - AUCUN STYLE SPÉCIFIQUE */
+        .contact-icon {
+            font-size: 1.2rem;
+            margin-left: 15px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .contact-icon:hover {
+            color: var(--secondary);
+        }
+
+        /* Page Header - AVEC IMAGE DE FOND COMME DANS VOTRE CODE */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.6)),
+                url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p.lead {
+            font-size: 1.5rem;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            background: white;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: auto;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Conteneur média */
+        .media-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Images - taille naturelle */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Vidéos - taille naturelle */
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Style spécifique pour les vidéos */
+        .video-container {
+            position: relative;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(46, 49, 146, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            border: none;
+        }
+
+        .video-play-btn:hover {
+            background: rgba(46, 49, 146, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-play-btn.playing {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .media-info {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #E9ECEF;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .media-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .media-type {
+            font-size: 12px;
+            color: #6C757D;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* Bouton retour - SIMILAIRE AU BOUTON GALERIE DE INDEX.HTML */
+        .back-button {
+            background: var(--secondary);
+            color: white;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* ====================== RESPONSIVE ====================== */
+
+        /* Réduction des tailles de texte en responsive - EXACTEMENT COMME INDEX.HTML */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.6rem;
+            }
+
+            .page-header p.lead {
+                font-size: 0.9rem !important;
+            }
+
+            .back-button {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+
+            .media-title {
+                font-size: 1.2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .media-container {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header {
+                padding: 150px 0 80px;
+            }
+
+            .page-title {
+                font-size: 1.3rem;
+            }
+
+            .page-header p.lead {
+                font-size: 0.8rem !important;
+            }
+
+            .back-button {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+                border-width: 1px;
+            }
+
+            .media-title {
+                font-size: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .media-container {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barre de navigation EXACTEMENT COMME INDEX.HTML - MÊME HTML -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">EBEN EZER</a>
+            <div class="ms-auto d-flex align-items-center">
+                <a href="https://wa.me/243971400661" class="contact-icon" title="WhatsApp">
+                    <i class="bi bi-whatsapp"></i> <span class="d-none d-md-inline ms-1">0971400661</span>
+                </a>
+                <a href="tel:0973332132" class="contact-icon" title="Appeler">
+                    <i class="bi bi-telephone-fill"></i> <span class="d-none d-md-inline ms-1">0973332132</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header - AVEC IMAGE DE FOND -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Notre Galerie</h1>
+            <p class="lead mb-4 fs-3">Découvrez nos réalisations en architecture et décoration</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Les médias seront chargés dynamiquement -->
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="index.html" class="btn back-button">
+                    <i class="bi bi-arrow-left me-2"></i> Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ========== INITIALISATION ==========
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("✅ Page Galerie Eben Ezer chargée");
+
+            // ========== CHARGEMENT DES MÉDIAS ==========
+            const mediaItems = [
+                { type: 'image', src: 'medias/realisation1.jpg', title: 'Projet Résidentiel Moderne' },
+                { type: 'image', src: 'medias/realisation2.jpg', title: 'Décoration Intérieure' },
+                { type: 'image', src: 'medias/realisation3.jpg', title: 'Balustrade Artisanale' },
+                { type: 'image', src: 'medias/realisation4.jpg', title: 'Colonnes Sculptées' },
+                { type: 'image', src: 'medias/realisation5.jpg', title: 'Projet Commercial' },
+                { type: 'image', src: 'medias/realisation6.jpg', title: 'Rénovation Complète' },
+                { type: 'image', src: 'medias/realisation7.jpg', title: 'Design Extérieur' },
+                { type: 'image', src: 'medias/realisation8.jpg', title: 'Projet Sur Mesure' },
+                { type: 'image', src: 'medias/realisation9.jpg', title: 'Architecture Contemporaine' },
+                { type: 'image', src: 'medias/realisation10.jpg', title: 'Aménagement Paysager' },
+                { type: 'image', src: 'medias/realisation11.jpg', title: 'Villa de Prestige' },
+                { type: 'image', src: 'medias/realisation12.jpg', title: 'Espace Commercial' },
+
+                { type: 'video', src: 'medias/video1.mp4', title: 'Visite de Projet' },
+                { type: 'video', src: 'medias/video2.mp4', title: 'Réalisation en Direct' },
+                { type: 'video', src: 'medias/video3.mp4', title: 'Témoignage Client' }
+            ];
+
+            function loadMedia() {
+                const galleryGrid = document.getElementById('galleryGrid');
+                if (!galleryGrid) {
+                    console.error("❌ galleryGrid non trouvé");
+                    return;
+                }
+
+                galleryGrid.innerHTML = '';
+
+                mediaItems.forEach((item, index) => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.setAttribute('data-index', index);
+
+                    let mediaContent = '';
+
+                    if (item.type === 'image') {
+                        mediaContent = `
+                            <div class="media-container">
+                                <img src="${item.src}" alt="${item.title}" loading="lazy"
+                                     onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2E3192/FFFFFF?text=Eben+Ezer+Architecture'">
+                            </div>
+                            <div class="media-info">
+                                <div class="media-title">${item.title}</div>
+                                <div class="media-type">Image</div>
+                            </div>
+                        `;
+                    } else {
+                        mediaContent = `
+                            <div class="media-container video-container">
+                                <video muted playsinline preload="metadata">
+                                    <source src="${item.src}" type="video/mp4">
+                                    Votre navigateur ne supporte pas la vidéo.
+                                </video>
+                                <button class="video-play-btn">
+                                    <i class="bi bi-play-fill"></i>
+                                </button>
+                            </div>
+                            <div class="media-info">
+                                <div class="media-title">${item.title}</div>
+                                <div class="media-type">Vidéo</div>
+                            </div>
+                        `;
+                    }
+
+                    galleryItem.innerHTML = mediaContent;
+
+                    // Gestion des vidéos
+                    if (item.type === 'video') {
+                        const video = galleryItem.querySelector('video');
+                        const playBtn = galleryItem.querySelector('.video-play-btn');
+
+                        if (video && playBtn) {
+                            // Gestion du clic sur le bouton play
+                            playBtn.addEventListener('click', function (e) {
+                                e.stopPropagation();
+
+                                if (video.paused) {
+                                    video.play();
+                                    playBtn.classList.add('playing');
+                                    playBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+                                } else {
+                                    video.pause();
+                                    playBtn.classList.remove('playing');
+                                    playBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
+                                }
+                            });
+
+                            // Gestion des événements de la vidéo
+                            video.addEventListener('play', function () {
+                                playBtn.classList.add('playing');
+                                playBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+                            });
+
+                            video.addEventListener('pause', function () {
+                                playBtn.classList.remove('playing');
+                                playBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
+                            });
+
+                            video.addEventListener('ended', function () {
+                                playBtn.classList.remove('playing');
+                                playBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
+                                video.currentTime = 0;
+                            });
+                        }
+                    }
+
+                    // Click sur la card pour ouvrir l'image en grand
+                    galleryItem.addEventListener('click', function (e) {
+                        // Ne pas ouvrir le lien si on clique sur le bouton play
+                        if (!e.target.closest('.video-play-btn')) {
+                            if (item.src) {
+                                // Créer une vue modale simple pour l'image
+                                const modal = document.createElement('div');
+                                modal.style.cssText = `
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background: rgba(0,0,0,0.9);
+                                    z-index: 9999;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                `;
+
+                                const img = document.createElement('img');
+                                img.src = item.src;
+                                img.style.cssText = `
+                                    max-width: 90%;
+                                    max-height: 90%;
+                                    object-fit: contain;
+                                    border-radius: 10px;
+                                `;
+                                img.onerror = function () {
+                                    this.src = 'https://via.placeholder.com/800x600/2E3192/FFFFFF?text=Eben+Ezer+Architecture';
+                                };
+
+                                // Bouton de fermeture
+                                const closeBtn = document.createElement('button');
+                                closeBtn.innerHTML = '<i class="bi bi-x" style="font-size: 2rem;"></i>';
+                                closeBtn.style.cssText = `
+                                    position: absolute;
+                                    top: 20px;
+                                    right: 20px;
+                                    background: rgba(255,255,255,0.9);
+                                    border: none;
+                                    width: 50px;
+                                    height: 50px;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    cursor: pointer;
+                                    color: #333;
+                                    font-size: 1.5rem;
+                                `;
+                                closeBtn.onclick = function (e) {
+                                    e.stopPropagation();
+                                    document.body.removeChild(modal);
+                                };
+
+                                modal.appendChild(img);
+                                modal.appendChild(closeBtn);
+
+                                // Fermer en cliquant à l'extérieur
+                                modal.onclick = function (e) {
+                                    if (e.target === modal) {
+                                        document.body.removeChild(modal);
+                                    }
+                                };
+
+                                // Fermer avec la touche Échap
+                                const keyHandler = function (e) {
+                                    if (e.key === 'Escape') {
+                                        document.body.removeChild(modal);
+                                        document.removeEventListener('keydown', keyHandler);
+                                    }
+                                };
+                                document.addEventListener('keydown', keyHandler);
+
+                                document.body.appendChild(modal);
+                            }
+                        }
+                    });
+
+                    galleryGrid.appendChild(galleryItem);
+                });
+
+                console.log(`✅ ${mediaItems.length} médias chargés pour Eben Ezer`);
+            }
+
+            loadMedia();
+        });
+
+        // Gestion des erreurs globales
+        window.addEventListener('error', function (e) {
+            console.error('❌ Erreur JavaScript:', e.message, 'à', e.filename, 'ligne', e.lineno);
+        });
+    </script>
+</body>
+
+</html>
