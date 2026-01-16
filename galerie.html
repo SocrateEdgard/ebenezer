@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
 
-        /* Barre de navigation EXACTEMENT COMME INDEX.HTML - AUCUN STYLE SPÉCIFIQUE */
         .contact-icon {
             font-size: 1.2rem;
             margin-left: 15px;
@@ -35,7 +34,7 @@
             color: var(--secondary);
         }
 
-        /* Page Header - AVEC IMAGE DE FOND COMME DANS VOTRE CODE */
+        /* Page Header */
         .page-header {
             background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.6)),
                 url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
@@ -97,7 +96,7 @@
             justify-content: center;
         }
 
-        /* Images - taille naturelle */
+        /* Images */
         .gallery-item img {
             width: 100%;
             height: 100%;
@@ -110,7 +109,7 @@
             transform: scale(1.05);
         }
 
-        /* Vidéos - taille naturelle */
+        /* Vidéos */
         .gallery-item video {
             width: 100%;
             height: 100%;
@@ -177,7 +176,7 @@
             font-weight: 500;
         }
 
-        /* Bouton retour - SIMILAIRE AU BOUTON GALERIE DE INDEX.HTML */
+        /* Bouton retour */
         .back-button {
             background: var(--secondary);
             color: white;
@@ -200,9 +199,138 @@
             transform: scale(1.1);
         }
 
-        /* ====================== RESPONSIVE ====================== */
+        /* ========== STYLES POUR LA GALERIE MODALE ========== */
+        .gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
 
-        /* Réduction des tailles de texte en responsive - EXACTEMENT COMME INDEX.HTML */
+        .gallery-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-media-container {
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .modal-media {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navigation arrows */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .modal-nav.prev {
+            left: 20px;
+        }
+
+        .modal-nav.next {
+            right: 20px;
+        }
+
+        /* Bouton fermeture */
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        /* Indicateur (X sur Y) */
+        .modal-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Titre sous l'image */
+        .modal-title {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            max-width: 80%;
+        }
+
+        /* ====================== RESPONSIVE ====================== */
         @media (max-width: 768px) {
             .page-title {
                 font-size: 1.6rem;
@@ -227,6 +355,28 @@
 
             .media-container {
                 height: 200px;
+            }
+
+            .modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .modal-nav.prev {
+                left: 10px;
+            }
+
+            .modal-nav.next {
+                right: 10px;
+            }
+
+            .modal-close {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                top: 10px;
+                right: 10px;
             }
         }
 
@@ -266,7 +416,7 @@
 
 <body>
 
-    <!-- Barre de navigation EXACTEMENT COMME INDEX.HTML - MÊME HTML -->
+    <!-- Barre de navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">EBEN EZER</a>
@@ -281,7 +431,7 @@
         </div>
     </nav>
 
-    <!-- Page Header - AVEC IMAGE DE FOND -->
+    <!-- Page Header -->
     <section class="page-header">
         <div class="container">
             <h1 class="page-title">Notre Galerie</h1>
@@ -304,31 +454,73 @@
         </div>
     </section>
 
+    <!-- Modal pour la galerie -->
+    <div class="gallery-modal" id="galleryModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="bi bi-x"></i>
+            </button>
+
+            <button class="modal-nav prev" id="modalPrev">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <button class="modal-nav next" id="modalNext">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+
+            <div class="modal-media-container" id="modalMediaContainer">
+                <!-- Le média s'affichera ici -->
+            </div>
+
+            <div class="modal-counter" id="modalCounter">
+                <!-- Le compteur s'affichera ici -->
+            </div>
+
+            <div class="modal-title" id="modalTitle">
+                <!-- Le titre s'affichera ici -->
+            </div>
+        </div>
+    </div>
+
     <script>
         // ========== INITIALISATION ==========
         document.addEventListener('DOMContentLoaded', function () {
             console.log("✅ Page Galerie Eben Ezer chargée");
 
+            // ========== VARIABLES GLOBALES ==========
+            let currentMediaIndex = 0;
+            let mediaItems = [];
+
+            // ========== GÉNÉRATION DES MÉDIAS ==========
+            function generateMediaItems() {
+                const items = [];
+
+                // Générer les images de 1 à 50
+                for (let i = 1; i <= 50; i++) {
+                    items.push({
+                        type: 'image',
+                        src: `medias/realisation${i}.jpg`,
+                        title: `Réalisation ${i}`
+                    });
+                }
+
+                // Ajouter les vidéos
+                for (let i = 1; i <= 3; i++) {
+                    items.push({
+                        type: 'video',
+                        src: `medias/video${i}.mp4`,
+                        title: `Vidéo ${i}`
+                    });
+                }
+
+                return items;
+            }
+
+            mediaItems = generateMediaItems();
+            console.log(`✅ ${mediaItems.length} médias générés`);
+
             // ========== CHARGEMENT DES MÉDIAS ==========
-            const mediaItems = [
-                { type: 'image', src: 'medias/realisation1.jpg', title: 'Projet Résidentiel Moderne' },
-                { type: 'image', src: 'medias/realisation2.jpg', title: 'Décoration Intérieure' },
-                { type: 'image', src: 'medias/realisation3.jpg', title: 'Balustrade Artisanale' },
-                { type: 'image', src: 'medias/realisation4.jpg', title: 'Colonnes Sculptées' },
-                { type: 'image', src: 'medias/realisation5.jpg', title: 'Projet Commercial' },
-                { type: 'image', src: 'medias/realisation6.jpg', title: 'Rénovation Complète' },
-                { type: 'image', src: 'medias/realisation7.jpg', title: 'Design Extérieur' },
-                { type: 'image', src: 'medias/realisation8.jpg', title: 'Projet Sur Mesure' },
-                { type: 'image', src: 'medias/realisation9.jpg', title: 'Architecture Contemporaine' },
-                { type: 'image', src: 'medias/realisation10.jpg', title: 'Aménagement Paysager' },
-                { type: 'image', src: 'medias/realisation11.jpg', title: 'Villa de Prestige' },
-                { type: 'image', src: 'medias/realisation12.jpg', title: 'Espace Commercial' },
-
-                { type: 'video', src: 'medias/video1.mp4', title: 'Visite de Projet' },
-                { type: 'video', src: 'medias/video2.mp4', title: 'Réalisation en Direct' },
-                { type: 'video', src: 'medias/video3.mp4', title: 'Témoignage Client' }
-            ];
-
             function loadMedia() {
                 const galleryGrid = document.getElementById('galleryGrid');
                 if (!galleryGrid) {
@@ -376,13 +568,12 @@
 
                     galleryItem.innerHTML = mediaContent;
 
-                    // Gestion des vidéos
+                    // Gestion des vidéos dans la grille
                     if (item.type === 'video') {
                         const video = galleryItem.querySelector('video');
                         const playBtn = galleryItem.querySelector('.video-play-btn');
 
                         if (video && playBtn) {
-                            // Gestion du clic sur le bouton play
                             playBtn.addEventListener('click', function (e) {
                                 e.stopPropagation();
 
@@ -397,7 +588,6 @@
                                 }
                             });
 
-                            // Gestion des événements de la vidéo
                             video.addEventListener('play', function () {
                                 playBtn.classList.add('playing');
                                 playBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
@@ -416,94 +606,141 @@
                         }
                     }
 
-                    // Click sur la card pour ouvrir l'image en grand
+                    // Click sur la card pour ouvrir dans la galerie
                     galleryItem.addEventListener('click', function (e) {
-                        // Ne pas ouvrir le lien si on clique sur le bouton play
                         if (!e.target.closest('.video-play-btn')) {
-                            if (item.src) {
-                                // Créer une vue modale simple pour l'image
-                                const modal = document.createElement('div');
-                                modal.style.cssText = `
-                                    position: fixed;
-                                    top: 0;
-                                    left: 0;
-                                    width: 100%;
-                                    height: 100%;
-                                    background: rgba(0,0,0,0.9);
-                                    z-index: 9999;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    cursor: pointer;
-                                `;
-
-                                const img = document.createElement('img');
-                                img.src = item.src;
-                                img.style.cssText = `
-                                    max-width: 90%;
-                                    max-height: 90%;
-                                    object-fit: contain;
-                                    border-radius: 10px;
-                                `;
-                                img.onerror = function () {
-                                    this.src = 'https://via.placeholder.com/800x600/2E3192/FFFFFF?text=Eben+Ezer+Architecture';
-                                };
-
-                                // Bouton de fermeture
-                                const closeBtn = document.createElement('button');
-                                closeBtn.innerHTML = '<i class="bi bi-x" style="font-size: 2rem;"></i>';
-                                closeBtn.style.cssText = `
-                                    position: absolute;
-                                    top: 20px;
-                                    right: 20px;
-                                    background: rgba(255,255,255,0.9);
-                                    border: none;
-                                    width: 50px;
-                                    height: 50px;
-                                    border-radius: 50%;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    cursor: pointer;
-                                    color: #333;
-                                    font-size: 1.5rem;
-                                `;
-                                closeBtn.onclick = function (e) {
-                                    e.stopPropagation();
-                                    document.body.removeChild(modal);
-                                };
-
-                                modal.appendChild(img);
-                                modal.appendChild(closeBtn);
-
-                                // Fermer en cliquant à l'extérieur
-                                modal.onclick = function (e) {
-                                    if (e.target === modal) {
-                                        document.body.removeChild(modal);
-                                    }
-                                };
-
-                                // Fermer avec la touche Échap
-                                const keyHandler = function (e) {
-                                    if (e.key === 'Escape') {
-                                        document.body.removeChild(modal);
-                                        document.removeEventListener('keydown', keyHandler);
-                                    }
-                                };
-                                document.addEventListener('keydown', keyHandler);
-
-                                document.body.appendChild(modal);
-                            }
+                            const index = parseInt(this.getAttribute('data-index'));
+                            openGallery(index);
                         }
                     });
 
                     galleryGrid.appendChild(galleryItem);
                 });
 
-                console.log(`✅ ${mediaItems.length} médias chargés pour Eben Ezer`);
+                console.log(`✅ ${mediaItems.length} médias chargés dans la grille`);
             }
 
+            // ========== FONCTIONS DE LA GALERIE MODALE ==========
+            function openGallery(index) {
+                currentMediaIndex = index;
+                updateGalleryModal();
+                document.getElementById('galleryModal').classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement
+            }
+
+            function closeGallery() {
+                document.getElementById('galleryModal').classList.remove('active');
+                document.body.style.overflow = 'auto'; // Rétablir le défilement
+            }
+
+            function navigateGallery(direction) {
+                if (direction === 'prev') {
+                    currentMediaIndex = (currentMediaIndex - 1 + mediaItems.length) % mediaItems.length;
+                } else {
+                    currentMediaIndex = (currentMediaIndex + 1) % mediaItems.length;
+                }
+                updateGalleryModal();
+            }
+
+            function updateGalleryModal() {
+                const currentItem = mediaItems[currentMediaIndex];
+                const modalMediaContainer = document.getElementById('modalMediaContainer');
+                const modalCounter = document.getElementById('modalCounter');
+                const modalTitle = document.getElementById('modalTitle');
+
+                if (!currentItem) return;
+
+                // Mettre à jour le compteur
+                modalCounter.textContent = `${currentMediaIndex + 1} / ${mediaItems.length}`;
+                
+                // Mettre à jour le titre
+                modalTitle.textContent = currentItem.title;
+
+                // Mettre à jour le média
+                let mediaHTML = '';
+                if (currentItem.type === 'image') {
+                    mediaHTML = `
+                        <img src="${currentItem.src}" alt="${currentItem.title}" class="modal-media"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600/2E3192/FFFFFF?text=Eben+Ezer+Architecture'">
+                    `;
+                } else {
+                    mediaHTML = `
+                        <video class="modal-media" controls autoplay>
+                            <source src="${currentItem.src}" type="video/mp4">
+                            Votre navigateur ne supporte pas la vidéo.
+                        </video>
+                    `;
+                }
+
+                modalMediaContainer.innerHTML = mediaHTML;
+
+                // Si c'est une vidéo, gérer les événements
+                if (currentItem.type === 'video') {
+                    const video = modalMediaContainer.querySelector('video');
+                    if (video) {
+                        video.addEventListener('ended', function() {
+                            // Passer à l'élément suivant quand la vidéo se termine
+                            navigateGallery('next');
+                        });
+                    }
+                }
+            }
+
+            // ========== ÉVÉNEMENTS ==========
+            // Navigation par flèches
+            document.getElementById('modalPrev').addEventListener('click', function(e) {
+                e.stopPropagation();
+                navigateGallery('prev');
+            });
+
+            document.getElementById('modalNext').addEventListener('click', function(e) {
+                e.stopPropagation();
+                navigateGallery('next');
+            });
+
+            // Fermeture
+            document.getElementById('modalClose').addEventListener('click', closeGallery);
+
+            // Fermeture en cliquant en dehors
+            document.getElementById('galleryModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeGallery();
+                }
+            });
+
+            // Navigation au clavier
+            document.addEventListener('keydown', function(e) {
+                const modal = document.getElementById('galleryModal');
+                if (!modal.classList.contains('active')) return;
+
+                switch(e.key) {
+                    case 'Escape':
+                        closeGallery();
+                        break;
+                    case 'ArrowLeft':
+                        navigateGallery('prev');
+                        break;
+                    case 'ArrowRight':
+                        navigateGallery('next');
+                        break;
+                }
+            });
+
+            // ========== CHARGEMENT INITIAL ==========
             loadMedia();
+
+            // Tester le chargement des images
+            console.log("🔄 Test de chargement des images...");
+            for (let i = 1; i <= 5; i++) {
+                const testImg = new Image();
+                testImg.src = `medias/realisation${i}.jpg`;
+                testImg.onload = function() {
+                    console.log(`✅ Image ${i} chargée avec succès`);
+                };
+                testImg.onerror = function() {
+                    console.warn(`⚠️ Image ${i} non trouvée, utilisera le placeholder`);
+                };
+            }
         });
 
         // Gestion des erreurs globales
