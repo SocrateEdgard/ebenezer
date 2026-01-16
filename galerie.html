@@ -496,8 +496,8 @@
             function generateMediaItems() {
                 const items = [];
 
-                // Générer les images de 1 à 50
-                for (let i = 1; i <= 50; i++) {
+                // Générer les images de 1 à 22 (au lieu de 50)
+                for (let i = 1; i <= 22; i++) {
                     items.push({
                         type: 'image',
                         src: `medias/realisation${i}.jpg`,
@@ -652,7 +652,7 @@
 
                 // Mettre à jour le compteur
                 modalCounter.textContent = `${currentMediaIndex + 1} / ${mediaItems.length}`;
-                
+
                 // Mettre à jour le titre
                 modalTitle.textContent = currentItem.title;
 
@@ -678,7 +678,7 @@
                 if (currentItem.type === 'video') {
                     const video = modalMediaContainer.querySelector('video');
                     if (video) {
-                        video.addEventListener('ended', function() {
+                        video.addEventListener('ended', function () {
                             // Passer à l'élément suivant quand la vidéo se termine
                             navigateGallery('next');
                         });
@@ -688,12 +688,12 @@
 
             // ========== ÉVÉNEMENTS ==========
             // Navigation par flèches
-            document.getElementById('modalPrev').addEventListener('click', function(e) {
+            document.getElementById('modalPrev').addEventListener('click', function (e) {
                 e.stopPropagation();
                 navigateGallery('prev');
             });
 
-            document.getElementById('modalNext').addEventListener('click', function(e) {
+            document.getElementById('modalNext').addEventListener('click', function (e) {
                 e.stopPropagation();
                 navigateGallery('next');
             });
@@ -702,18 +702,18 @@
             document.getElementById('modalClose').addEventListener('click', closeGallery);
 
             // Fermeture en cliquant en dehors
-            document.getElementById('galleryModal').addEventListener('click', function(e) {
+            document.getElementById('galleryModal').addEventListener('click', function (e) {
                 if (e.target === this) {
                     closeGallery();
                 }
             });
 
             // Navigation au clavier
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 const modal = document.getElementById('galleryModal');
                 if (!modal.classList.contains('active')) return;
 
-                switch(e.key) {
+                switch (e.key) {
                     case 'Escape':
                         closeGallery();
                         break;
@@ -734,10 +734,10 @@
             for (let i = 1; i <= 5; i++) {
                 const testImg = new Image();
                 testImg.src = `medias/realisation${i}.jpg`;
-                testImg.onload = function() {
+                testImg.onload = function () {
                     console.log(`✅ Image ${i} chargée avec succès`);
                 };
-                testImg.onerror = function() {
+                testImg.onerror = function () {
                     console.warn(`⚠️ Image ${i} non trouvée, utilisera le placeholder`);
                 };
             }
