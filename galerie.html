@@ -61,10 +61,11 @@
             background-color: var(--light);
         }
 
+        /* Grille responsive avec cartes plus grandes */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .gallery-item {
@@ -77,18 +78,20 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: auto;
+            height: 350px;
+            /* Hauteur fixe plus grande */
         }
 
         .gallery-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
-        /* Conteneur média */
+        /* Conteneur média - plus grand */
         .media-container {
             width: 100%;
-            height: 250px;
+            height: 100%;
+            /* Prend toute la hauteur de la carte */
             overflow: hidden;
             background: #f8f9fa;
             display: flex;
@@ -106,74 +109,7 @@
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Vidéos */
-        .gallery-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Style spécifique pour les vidéos */
-        .video-container {
-            position: relative;
-        }
-
-        .video-play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(46, 49, 146, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-            border: none;
-        }
-
-        .video-play-btn:hover {
-            background: rgba(46, 49, 146, 1);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .video-play-btn.playing {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .media-info {
-            padding: 15px;
-            background: white;
-            border-top: 1px solid #E9ECEF;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .media-title {
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--dark);
-            font-size: 1.2rem;
-        }
-
-        .media-type {
-            font-size: 12px;
-            color: #6C757D;
-            text-transform: uppercase;
-            font-weight: 500;
+            transform: scale(1.08);
         }
 
         /* Bouton retour */
@@ -190,7 +126,7 @@
             justify-content: center;
             border: 2px solid var(--primary);
             transition: all 0.3s ease;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .back-button:hover {
@@ -321,94 +257,150 @@
             font-weight: 600;
         }
 
-        /* Titre sous l'image */
-        .modal-title {
-            color: white;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            max-width: 80%;
+        /* ====================== RESPONSIVE ====================== */
+        @media (min-width: 1400px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+
+            .gallery-item {
+                height: 380px;
+            }
         }
 
-        /* ====================== RESPONSIVE ====================== */
-        @media (max-width: 768px) {
+        @media (max-width: 1199px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .gallery-item {
+                height: 330px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 25px;
+            }
+
+            .gallery-item {
+                height: 300px;
+            }
+
+            .page-header {
+                padding: 150px 0 80px;
+            }
+
             .page-title {
-                font-size: 1.6rem;
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 20px;
+            }
+
+            .gallery-item {
+                height: 280px;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
             }
 
             .page-header p.lead {
-                font-size: 0.9rem !important;
+                font-size: 1.2rem !important;
             }
 
             .back-button {
-                padding: 8px 16px;
-                font-size: 0.8rem;
+                padding: 10px 25px;
+                font-size: 0.9rem;
             }
 
-            .media-title {
-                font-size: 1.2rem;
+            .modal-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
             }
 
+            .modal-nav.prev {
+                left: 15px;
+            }
+
+            .modal-nav.next {
+                right: 15px;
+            }
+
+            .modal-close {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+                gap: 15px;
             }
 
-            .media-container {
-                height: 200px;
+            .gallery-item {
+                height: 250px;
+            }
+
+            .page-header {
+                padding: 130px 0 60px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-header p.lead {
+                font-size: 1.1rem !important;
+            }
+
+            .back-button {
+                padding: 8px 20px;
+                font-size: 0.85rem;
             }
 
             .modal-nav {
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
+                top: auto;
+                bottom: 20px;
+                transform: none;
             }
 
             .modal-nav.prev {
-                left: 10px;
+                left: 20px;
             }
 
             .modal-nav.next {
-                right: 10px;
+                right: 20px;
             }
 
             .modal-close {
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
-                top: 10px;
-                right: 10px;
+                top: 15px;
+                right: 15px;
             }
         }
 
-        @media (max-width: 576px) {
-            .page-header {
-                padding: 150px 0 80px;
+        @media (max-width: 400px) {
+            .gallery-item {
+                height: 220px;
             }
 
             .page-title {
-                font-size: 1.3rem;
-            }
-
-            .page-header p.lead {
-                font-size: 0.8rem !important;
-            }
-
-            .back-button {
-                padding: 6px 12px;
-                font-size: 0.7rem;
-                border-width: 1px;
-            }
-
-            .media-title {
-                font-size: 1rem;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .media-container {
-                height: 180px;
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -443,7 +435,7 @@
     <section class="gallery-section">
         <div class="container">
             <div class="gallery-grid" id="galleryGrid">
-                <!-- Les médias seront chargés dynamiquement -->
+                <!-- Les images seront chargées dynamiquement -->
             </div>
 
             <div class="text-center mt-5">
@@ -470,15 +462,11 @@
             </button>
 
             <div class="modal-media-container" id="modalMediaContainer">
-                <!-- Le média s'affichera ici -->
+                <!-- L'image s'affichera ici -->
             </div>
 
             <div class="modal-counter" id="modalCounter">
                 <!-- Le compteur s'affichera ici -->
-            </div>
-
-            <div class="modal-title" id="modalTitle">
-                <!-- Le titre s'affichera ici -->
             </div>
         </div>
     </div>
@@ -488,16 +476,21 @@
         document.addEventListener('DOMContentLoaded', function () {
             console.log("✅ Page Galerie Eben Ezer chargée");
 
+            // ========== CONFIGURATION ==========
+            // Modifier ce nombre pour ajouter plus d'images facilement
+            const TOTAL_IMAGES = 100; // Total d'images disponibles
+            const CURRENT_IMAGES = 30; // Nombre actuel d'images dans votre dossier
+
             // ========== VARIABLES GLOBALES ==========
             let currentMediaIndex = 0;
             let mediaItems = [];
 
-            // ========== GÉNÉRATION DES MÉDIAS ==========
-            function generateMediaItems() {
+            // ========== GÉNÉRATION DES IMAGES ==========
+            function generateImageItems() {
                 const items = [];
 
-                // Générer les images de 1 à 22 (au lieu de 50)
-                for (let i = 1; i <= 22; i++) {
+                // Générer les images de 1 à CURRENT_IMAGES (30 actuellement)
+                for (let i = 1; i <= CURRENT_IMAGES; i++) {
                     items.push({
                         type: 'image',
                         src: `medias/realisation${i}.jpg`,
@@ -505,23 +498,14 @@
                     });
                 }
 
-                // Ajouter les vidéos
-                for (let i = 1; i <= 3; i++) {
-                    items.push({
-                        type: 'video',
-                        src: `medias/video${i}.mp4`,
-                        title: `Vidéo ${i}`
-                    });
-                }
-
                 return items;
             }
 
-            mediaItems = generateMediaItems();
-            console.log(`✅ ${mediaItems.length} médias générés`);
+            mediaItems = generateImageItems();
+            console.log(`✅ ${mediaItems.length} images chargées sur ${TOTAL_IMAGES} disponibles`);
 
-            // ========== CHARGEMENT DES MÉDIAS ==========
-            function loadMedia() {
+            // ========== CHARGEMENT DES IMAGES ==========
+            function loadImages() {
                 const galleryGrid = document.getElementById('galleryGrid');
                 if (!galleryGrid) {
                     console.error("❌ galleryGrid non trouvé");
@@ -534,90 +518,33 @@
                     const galleryItem = document.createElement('div');
                     galleryItem.className = 'gallery-item';
                     galleryItem.setAttribute('data-index', index);
+                    galleryItem.setAttribute('title', item.title);
 
-                    let mediaContent = '';
-
-                    if (item.type === 'image') {
-                        mediaContent = `
-                            <div class="media-container">
-                                <img src="${item.src}" alt="${item.title}" loading="lazy"
-                                     onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2E3192/FFFFFF?text=Eben+Ezer+Architecture'">
-                            </div>
-                            <div class="media-info">
-                                <div class="media-title">${item.title}</div>
-                                <div class="media-type">Image</div>
-                            </div>
-                        `;
-                    } else {
-                        mediaContent = `
-                            <div class="media-container video-container">
-                                <video muted playsinline preload="metadata">
-                                    <source src="${item.src}" type="video/mp4">
-                                    Votre navigateur ne supporte pas la vidéo.
-                                </video>
-                                <button class="video-play-btn">
-                                    <i class="bi bi-play-fill"></i>
-                                </button>
-                            </div>
-                            <div class="media-info">
-                                <div class="media-title">${item.title}</div>
-                                <div class="media-type">Vidéo</div>
-                            </div>
-                        `;
-                    }
+                    // Créer uniquement l'image sans texte
+                    const mediaContent = `
+                        <div class="media-container">
+                            <img src="${item.src}" alt="${item.title}" loading="lazy"
+                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2E3192/FFFFFF?text=Eben+Ezer+Architecture'">
+                        </div>
+                    `;
 
                     galleryItem.innerHTML = mediaContent;
 
-                    // Gestion des vidéos dans la grille
-                    if (item.type === 'video') {
-                        const video = galleryItem.querySelector('video');
-                        const playBtn = galleryItem.querySelector('.video-play-btn');
-
-                        if (video && playBtn) {
-                            playBtn.addEventListener('click', function (e) {
-                                e.stopPropagation();
-
-                                if (video.paused) {
-                                    video.play();
-                                    playBtn.classList.add('playing');
-                                    playBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
-                                } else {
-                                    video.pause();
-                                    playBtn.classList.remove('playing');
-                                    playBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
-                                }
-                            });
-
-                            video.addEventListener('play', function () {
-                                playBtn.classList.add('playing');
-                                playBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
-                            });
-
-                            video.addEventListener('pause', function () {
-                                playBtn.classList.remove('playing');
-                                playBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
-                            });
-
-                            video.addEventListener('ended', function () {
-                                playBtn.classList.remove('playing');
-                                playBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
-                                video.currentTime = 0;
-                            });
-                        }
-                    }
-
-                    // Click sur la card pour ouvrir dans la galerie
-                    galleryItem.addEventListener('click', function (e) {
-                        if (!e.target.closest('.video-play-btn')) {
-                            const index = parseInt(this.getAttribute('data-index'));
-                            openGallery(index);
-                        }
+                    // Click sur l'image pour ouvrir dans la galerie modale
+                    galleryItem.addEventListener('click', function () {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        openGallery(index);
                     });
 
                     galleryGrid.appendChild(galleryItem);
                 });
 
-                console.log(`✅ ${mediaItems.length} médias chargés dans la grille`);
+                console.log(`✅ ${mediaItems.length} images affichées dans la grille`);
+
+                // Afficher un message si on a moins d'images que prévu
+                if (CURRENT_IMAGES < TOTAL_IMAGES) {
+                    console.log(`💡 Astuce : Pour ajouter plus d'images, augmentez la valeur de CURRENT_IMAGES à ${TOTAL_IMAGES}`);
+                }
             }
 
             // ========== FONCTIONS DE LA GALERIE MODALE ==========
@@ -625,12 +552,12 @@
                 currentMediaIndex = index;
                 updateGalleryModal();
                 document.getElementById('galleryModal').classList.add('active');
-                document.body.style.overflow = 'hidden'; // Empêcher le défilement
+                document.body.style.overflow = 'hidden';
             }
 
             function closeGallery() {
                 document.getElementById('galleryModal').classList.remove('active');
-                document.body.style.overflow = 'auto'; // Rétablir le défilement
+                document.body.style.overflow = 'auto';
             }
 
             function navigateGallery(direction) {
@@ -646,44 +573,19 @@
                 const currentItem = mediaItems[currentMediaIndex];
                 const modalMediaContainer = document.getElementById('modalMediaContainer');
                 const modalCounter = document.getElementById('modalCounter');
-                const modalTitle = document.getElementById('modalTitle');
 
                 if (!currentItem) return;
 
                 // Mettre à jour le compteur
                 modalCounter.textContent = `${currentMediaIndex + 1} / ${mediaItems.length}`;
 
-                // Mettre à jour le titre
-                modalTitle.textContent = currentItem.title;
-
-                // Mettre à jour le média
-                let mediaHTML = '';
-                if (currentItem.type === 'image') {
-                    mediaHTML = `
-                        <img src="${currentItem.src}" alt="${currentItem.title}" class="modal-media"
-                             onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600/2E3192/FFFFFF?text=Eben+Ezer+Architecture'">
-                    `;
-                } else {
-                    mediaHTML = `
-                        <video class="modal-media" controls autoplay>
-                            <source src="${currentItem.src}" type="video/mp4">
-                            Votre navigateur ne supporte pas la vidéo.
-                        </video>
-                    `;
-                }
+                // Mettre à jour l'image
+                const mediaHTML = `
+                    <img src="${currentItem.src}" alt="${currentItem.title}" class="modal-media"
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600/2E3192/FFFFFF?text=Eben+Ezer+Architecture'">
+                `;
 
                 modalMediaContainer.innerHTML = mediaHTML;
-
-                // Si c'est une vidéo, gérer les événements
-                if (currentItem.type === 'video') {
-                    const video = modalMediaContainer.querySelector('video');
-                    if (video) {
-                        video.addEventListener('ended', function () {
-                            // Passer à l'élément suivant quand la vidéo se termine
-                            navigateGallery('next');
-                        });
-                    }
-                }
             }
 
             // ========== ÉVÉNEMENTS ==========
@@ -727,11 +629,12 @@
             });
 
             // ========== CHARGEMENT INITIAL ==========
-            loadMedia();
+            loadImages();
 
-            // Tester le chargement des images
+            // Tester le chargement des premières images
             console.log("🔄 Test de chargement des images...");
-            for (let i = 1; i <= 5; i++) {
+            const imagesToTest = Math.min(5, CURRENT_IMAGES);
+            for (let i = 1; i <= imagesToTest; i++) {
                 const testImg = new Image();
                 testImg.src = `medias/realisation${i}.jpg`;
                 testImg.onload = function () {
